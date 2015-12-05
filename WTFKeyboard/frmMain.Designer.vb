@@ -32,7 +32,7 @@ Partial Class frmMain
         Me.Button1.Location = New System.Drawing.Point(8, 8)
         Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(71, 36)
+        Me.Button1.Size = New System.Drawing.Size(95, 36)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "开始(&S)"
         Me.Button1.UseVisualStyleBackColor = True
@@ -42,9 +42,9 @@ Partial Class frmMain
         Me.picMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picMain.Location = New System.Drawing.Point(84, 12)
+        Me.picMain.Location = New System.Drawing.Point(12, 49)
         Me.picMain.Name = "picMain"
-        Me.picMain.Size = New System.Drawing.Size(576, 462)
+        Me.picMain.Size = New System.Drawing.Size(648, 425)
         Me.picMain.TabIndex = 1
         Me.picMain.TabStop = False
         '
