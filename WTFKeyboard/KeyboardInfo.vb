@@ -9,6 +9,10 @@
 
     End Sub
 
+    Public Function GetAbsLocation(p As Point) As Point
+        Return Range.Location + p
+    End Function
+
     Public Function GetAbsRect(rect As Rectangle) As Rectangle
         Return New Rectangle(rect.Location + Range.Location, rect.Size)
     End Function
@@ -21,7 +25,7 @@
         ki.Add(k)
     End Sub
 
-    Private Sub mySort(keys As List(Of KeyInfo), comp As Func(Of KeyInfo, KeyInfo, Boolean))
+    Private Sub MyBubbleSort(keys As List(Of KeyInfo), comp As Func(Of KeyInfo, KeyInfo, Boolean))
         For i = 0 To keys.Count - 1
             For j = i + 1 To keys.Count - 1
                 If Not comp(keys(i), keys(j)) Then
@@ -44,10 +48,10 @@
         '              (a.Rect.Top = b.Rect.Top AndAlso a.Rect.Left < b.Rect.Left)
         '          End Function)
 
-        mySort(keys, Function(a As KeyInfo, b As KeyInfo) As Boolean
-                         Return (a.Rect.Top < b.Rect.Top) OrElse
+        MyBubbleSort(keys, Function(a As KeyInfo, b As KeyInfo) As Boolean
+                               Return (a.Rect.Top < b.Rect.Top) OrElse
                          (a.Rect.Top = b.Rect.Top AndAlso a.Rect.Left < b.Rect.Left)
-                     End Function)
+                           End Function)
 
         Dim ri As New List(Of RowInfo)
         Dim i = 0
@@ -55,7 +59,7 @@
             Dim row As New RowInfo
             row.Keys.Add(keys(i))
             i += 1
-            Do While i < keys.Count AndAlso Math.Abs(keys(i).Block.Top - row.Top) <= 1
+            Do While i < keys.Count AndAlso Math.Abs(keys(i).Block.Top - row.Top) <= 5
                 row.Keys.Add(keys(i))
                 i += 1
             Loop

@@ -23,45 +23,46 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.picBox = New System.Windows.Forms.PictureBox()
-        CType(Me.picBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.picMain = New System.Windows.Forms.PictureBox()
+        CType(Me.picMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 12)
+        Me.Button1.Location = New System.Drawing.Point(8, 8)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(107, 57)
+        Me.Button1.Size = New System.Drawing.Size(71, 36)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "开始(&S)"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'picBox
+        'picMain
         '
-        Me.picBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.picMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picBox.Location = New System.Drawing.Point(125, 12)
-        Me.picBox.Name = "picBox"
-        Me.picBox.Size = New System.Drawing.Size(871, 753)
-        Me.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.picBox.TabIndex = 1
-        Me.picBox.TabStop = False
+        Me.picMain.Location = New System.Drawing.Point(84, 12)
+        Me.picMain.Name = "picMain"
+        Me.picMain.Size = New System.Drawing.Size(576, 462)
+        Me.picMain.TabIndex = 1
+        Me.picMain.TabStop = False
         '
         'frmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 24.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 777)
-        Me.Controls.Add(Me.picBox)
+        Me.ClientSize = New System.Drawing.Size(672, 486)
+        Me.Controls.Add(Me.picMain)
         Me.Controls.Add(Me.Button1)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmMain"
         Me.Text = "Form1"
-        CType(Me.picBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Button1 As Button
-    Friend WithEvents picBox As PictureBox
+    Friend WithEvents picMain As PictureBox
 End Class

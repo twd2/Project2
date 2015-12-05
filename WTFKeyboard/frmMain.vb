@@ -7,14 +7,14 @@ Public Class frmMain
     Dim _g As Graphics = Nothing
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        PicResize()
     End Sub
 
-    Private Sub picBox_Click(sender As Object, e As EventArgs) Handles picBox.Click
+    Private Sub PicResize()
+        If picMain.Width <= 0 OrElse picMain.Height <= 0 Then
+            Return
+        End If
 
-    End Sub
-
-    Private Sub picBox_Resize(sender As Object, e As EventArgs) Handles picBox.Resize
         If _g IsNot Nothing Then
             _g.Dispose()
             _g = Nothing
@@ -24,19 +24,25 @@ Public Class frmMain
             _imageBuffer = Nothing
         End If
 
-        _imageBuffer = New Bitmap(1024, 1024)
+        _imageBuffer = New Bitmap(picMain.Width, picMain.Height)
         _g = Graphics.FromImage(_imageBuffer)
-        picBox.Image = _imageBuffer
+        picMain.Image = _imageBuffer
 
         _g.Clear(Color.White)
         _g.DrawString("hello, world", New Font("Consolas", 13), Brushes.Black, 0, 0)
-        picBox.Refresh()
+        picMain.Refresh()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        For Each filename In Directory.GetFiles("testcases")
-            Dim fi As New FileInfo(filename)
+        If Not Directory.Exists("result") Then
+            Directory.CreateDirectory("result")
+        End If
 
+        Dim di As New DirectoryInfo("testcases")
+        If Not di.Exists() Then
+            di = New DirectoryInfo("../../../testcases")
+        End If
+        For Each fi In di.GetFiles()
             Dim ext = fi.Extension.ToLower()
             If ext <> ".png" AndAlso ext <> ".jpg" Then
                 Continue For
@@ -128,25 +134,35 @@ Public Class frmMain
                 End If
 
                 Using g = Graphics.FromImage(img)
+                    Dim font As New Font("Consolas", 30)
+
                     g.DrawRectangle(Pens.Pink, ki.Range)
                     For Each blk In ki.KeyW
                         g.DrawRectangle(Pens.Red, ki.GetAbsRect(blk.Rect))
+                        g.DrawString("W", font, Brushes.Red, ki.GetAbsLocation(blk.Rect.Location))
                     Next
                     For Each blk In ki.KeyG
                         g.DrawRectangle(Pens.Green, ki.GetAbsRect(blk.Rect))
+                        g.DrawString("G", font, Brushes.Green, ki.GetAbsLocation(blk.Rect.Location))
                     Next
                     For Each blk In ki.KeyB
                         g.DrawRectangle(Pens.Blue, ki.GetAbsRect(blk.Rect))
+                        g.DrawString("B", font, Brushes.Blue, ki.GetAbsLocation(blk.Rect.Location))
                     Next
                     For Each blk In ki.KeyG2
                         g.DrawRectangle(Pens.Green, ki.GetAbsRect(blk.Rect))
+                        g.DrawString("G", font, Brushes.Green, ki.GetAbsLocation(blk.Rect.Location))
                     Next
                 End Using
                 img.Save(Path.Combine("result", fi.Name + ".png"))
                 _g.DrawImage(img, 0, 0)
-                picBox.Refresh()
+                picMain.Refresh()
             End Using
             'Return
         Next
+    End Sub
+
+    Private Sub picMain_SizeChanged(sender As Object, e As EventArgs) Handles picMain.SizeChanged
+        PicResize()
     End Sub
 End Class
