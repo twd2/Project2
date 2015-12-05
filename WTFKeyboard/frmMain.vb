@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports System.Threading
 
 Public Class frmMain
 
@@ -29,7 +30,7 @@ Public Class frmMain
         picMain.Image = _imageBuffer
 
         _g.Clear(Color.White)
-        _g.DrawString("hello, world", New Font("Consolas", 13), Brushes.Black, 0, 0)
+        _g.DrawString("hello, world", New Font("Consolas", 13), Brushes.Black, 0, 30)
         picMain.Refresh()
     End Sub
 
@@ -122,6 +123,8 @@ Public Class frmMain
                     sb.AppendLine()
                 Next
                 File.WriteAllText(Path.Combine("result", fi.Name + ".txt"), sb.ToString())
+            Else
+                File.WriteAllText(Path.Combine("result", fi.Name + ".txt"), "no keyboard")
             End If
 
             Dim myimg = img
@@ -156,11 +159,39 @@ Public Class frmMain
             ki.ImageData.ToBitmap().Save(Path.Combine("result", fi.Name + ".g.png"))
             myimg.Save(Path.Combine("result", fi.Name + ".png"))
 
-            _g.DrawImage(myimg, 0, 0)
-            picMain.Refresh()
+            'picMain.BeginInvoke(Sub()
+            '                        picMain.Image = myimg
+            '                        picMain.Refresh()
+            '                    End Sub)
         End Using
         'Return
     End Sub
+
+    Private Sub Worker(files As Queue(Of FileInfo))
+        Do While True
+            Dim fi As FileInfo = Nothing
+            SyncLock files
+                If files.Count = 0 Then
+                    Exit Do
+                End If
+                fi = files.Dequeue()
+            End SyncLock
+
+            If fi IsNot Nothing Then
+                Try
+                    Process(fi)
+                Catch ex As Exception
+                    Debug.Print(ex.ToString())
+                    SyncLock files
+                        files.Enqueue(fi)
+                    End SyncLock
+                End Try
+            End If
+        Loop
+
+    End Sub
+
+    Const ThreadCount = 8
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'Process(New FileInfo("../../../testcases/IMG_0037.png"))
@@ -175,8 +206,22 @@ Public Class frmMain
             di = New DirectoryInfo("../../../testcases")
         End If
 
-        For Each fi In di.GetFiles()
-            Process(fi)
+        Dim Q As New Queue(Of FileInfo)
+        Dim t(ThreadCount - 1) As Thread
+
+        Dim files = di.GetFiles()
+
+        For i = 0 To files.Count - 1
+            Q.Enqueue(files(i))
+        Next
+
+        For i = 0 To ThreadCount - 1
+            t(i) = New Thread(AddressOf Worker)
+            t(i).Start(Q)
+        Next
+
+        For i = 0 To ThreadCount - 1
+            t(i).Join()
         Next
     End Sub
 
