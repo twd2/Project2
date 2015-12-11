@@ -4,7 +4,7 @@ Great homework #2 for Fundamentals of Programming course.
 
 ## Usage
 
-### Windows with .NET framework 3.5
+### Windows with .NET Framework 3.5
 
 1. Open with Visual Studio.
 2. Build release version. 
