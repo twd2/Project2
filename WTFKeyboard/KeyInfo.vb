@@ -29,4 +29,9 @@
     Public Block As Block
     Public Rect As Rectangle
 
+    'Public ReadOnly Property frame As String
+    '    Get
+    '        Return String.Format("[{0}, {1}, {2}, {3}]", Rect.X, Rect.Y, Rect.Width, Rect.Height)
+    '    End Get
+    'End Property
 End Class

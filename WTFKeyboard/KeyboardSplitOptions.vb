@@ -2,7 +2,7 @@
 
     Public Shared [Default] As New KeyboardSplitOptions
 
-    Public BackgounrdMin As Double = 205, BackgroundMax As Double = 220
+    Public BackgroundMin As Double = 205, BackgroundMax As Double = 220
     Public WhiteMin As Double = 230, WhiteMax As Double = 255
     Public GrayMin As Double = 160, GrayMax As Double = 190
     Public Gray2Min As Double = 195, Gray2Max As Double = 200

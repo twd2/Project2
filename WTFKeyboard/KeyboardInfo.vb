@@ -95,7 +95,7 @@
 
         Dim ki As New KeyboardInfo
 
-        ki.ImageBG = BinaryData.FromBitmap(img, options.BackgounrdMin, options.BackgroundMax)
+        ki.ImageBG = BinaryData.FromBitmap(img, options.BackgroundMin, options.BackgroundMax)
 
         Dim blks = ImageProcessor.FindBlocks(ki.ImageBG)
         blks.Sort()
