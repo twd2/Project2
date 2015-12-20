@@ -79,7 +79,6 @@
     <Compile Include="KeyboardInfo.vb" />
     <Compile Include="KeyboardSplitOptions.vb" />
     <Compile Include="KeyInfo.vb" />
-    <Compile Include="LayoutInfo.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
